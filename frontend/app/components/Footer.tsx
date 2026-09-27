@@ -1,0 +1,237 @@
+import Image from "next/image";
+
+
+export default function Footer() {
+  return (
+    <footer
+      className="
+        bg-[#F2F4F5]
+
+        py-10
+
+        sm:py-12
+        md:py-14
+        lg:py-16
+      "
+    >
+      <div
+        className="
+          mx-auto
+          max-w-[1280px]
+          px-4
+          sm:px-6
+          md:px-10
+          lg:px-16
+        "
+      >
+        {/* Top Section */}
+        <div
+          className="
+            flex
+            flex-col
+            gap-10
+            lg:flex-row
+            lg:justify-between
+          "
+        >
+          {/* Left Links */}
+          <div
+            className="
+              grid
+              grid-cols-1
+              gap-8
+              sm:grid-cols-2
+              sm:gap-12
+              md:gap-16
+            "
+          >
+            <div className="space-y-5">
+              <a
+                href="#"
+                className="
+                  block
+                  text-[18px]
+                  font-[400]
+                  text-[#002C48]
+                  transition
+                  hover:opacity-70
+                  sm:text-[19px]
+                  md:text-[20px]
+                "
+              >
+                About Value Recharge
+              </a>
+              <a
+                href="#"
+                className="
+                  block
+                  text-[18px]
+                  font-[400]
+                  text-[#002C48]
+                  transition
+                  hover:opacity-70
+                  sm:text-[19px]
+                  md:text-[20px]
+                "
+              >
+                Blog
+              </a>
+              <a
+                href="#"
+                className="
+                  block
+                  text-[18px]
+                  font-[400]
+                  text-[#002C48]
+                  transition
+                  hover:opacity-70
+                  sm:text-[19px]
+                  md:text-[20px]
+                "
+              >
+                Help
+              </a>
+            </div>
+            <div className="space-y-5">
+              <a
+                href="#"
+                className="
+                  block
+                  text-[18px]
+                  font-[400]
+                  text-[#002C48]
+                  transition
+                  hover:opacity-70
+                  sm:text-[19px]
+                  md:text-[20px]
+                "
+              >
+                Promotions
+              </a>
+
+              <a
+                href="#"
+                className="
+                  block
+                  text-[18px]
+                  font-[400]
+                  text-[#002C48]
+                  transition
+                  hover:opacity-70
+
+                  sm:text-[19px]
+                  md:text-[20px]
+                "
+              >
+                Cell Phone Refills
+              </a>
+
+              <a
+                href="#"
+                className="
+                  block
+                  text-[18px]
+                  font-[400]
+                  text-[#002C48]
+                  transition
+                  hover:opacity-70
+
+                  sm:text-[19px]
+                  md:text-[20px]
+                "
+              >
+                Invite your friends
+              </a>
+            </div>
+          </div> 
+        </div>
+        <div
+          className="
+            my-8
+            h-[1px]
+            w-full
+            bg-[#D9DEE3]
+            sm:my-10
+          "
+        />
+        <div
+          className="
+            flex
+            flex-col
+            gap-6
+            text-center
+            md:flex-row
+            md:items-center
+            md:justify-between
+            md:text-left
+          "
+        >
+          <div
+            className="
+              flex
+              flex-col
+              gap-4
+              sm:flex-row
+              sm:flex-wrap
+              sm:items-center
+              sm:justify-center
+              sm:gap-6
+              md:justify-start
+            "
+          >
+            <p
+              className="
+                text-[16px]
+                text-[#002C48]
+                sm:text-[17px]
+                md:text-[18px]
+              "
+            >
+              Value Recharge © 2026
+            </p>
+            <a
+              href="#"
+              className="
+                text-[16px]
+                text-[#002C48]
+                transition
+                hover:opacity-70
+                sm:text-[17px]
+                md:text-[18px]
+              "
+            >
+              Terms of use
+            </a>
+            <a
+              href="#"
+              className="
+                text-[16px]
+                text-[#002C48]
+                transition
+                hover:opacity-70
+                sm:text-[17px]
+                md:text-[18px]
+              "
+            >
+              Privacy Policy
+            </a>
+            <a
+              href="mailto:help@valuerecharge.com"
+              className="
+                break-all
+                text-[16px]
+                text-[#002C48]
+                transition
+                hover:opacity-70
+                sm:text-[17px]
+                md:text-[18px]
+              "
+            >
+              help@valuerecharge.com
+            </a>
+          </div>
+        </div>
+      </div>
+    </footer>
+  );
+}
