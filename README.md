@@ -1,10 +1,12 @@
 # ValueRecharge
 
-A full-stack prepaid mobile recharge platform built using Next.js, React, TypeScript, Node.js, Express.js, and PostgreSQL.
+A full-stack prepaid mobile recharge platform built with **Next.js, React, TypeScript, Node.js, Express.js, and PostgreSQL**.
 
 ValueRecharge provides a simple interface for selecting a mobile carrier, choosing a recharge plan, completing a payment flow, and viewing transaction history through a dashboard.
 
-This project was developed as part of a Full-Stack Web Development Internship and is also maintained as a portfolio project.
+This project was developed as part of a **Full-Stack Web Development Internship** and is also maintained as a portfolio project.
+
+---
 
 ## Features
 
@@ -37,6 +39,8 @@ The dashboard provides an overview of recharge activity, including:
 
 ### Supported Carriers
 
+The project currently includes support for carriers such as:
+
 - Verizon
 - T-Mobile
 - AT&T
@@ -46,6 +50,8 @@ The dashboard provides an overview of recharge activity, including:
 - Lyca Mobile
 - H2O Wireless
 - Simple Mobile
+
+---
 
 ## Tech Stack
 
@@ -79,73 +85,138 @@ The dashboard provides an overview of recharge activity, including:
 - Postman
 - npm
 
+---
+
 ## Project Structure
 
-The project is divided into two main applications: a frontend and a backend.
-
-### Backend
-
-- `app/api/` - API routes for authentication, payments, recharge, users, and transactions
-- `lib/` - Database connection, logging, and middleware
-- `routes/` - Express route definitions
-- `src/controllers/` - Business logic for different modules
-- `src/models/` - Database models
-- `src/utilities/` - Authentication and utility functions
-- `server.ts` - Backend server entry point
-- `package.json` - Backend dependencies and scripts
-
-### Frontend
-
-- `app/` - Next.js application pages and components
-- `app/components/` - Reusable UI components
-- `app/dashboard/` - Transaction dashboard
-- `app/login/` - Login page
-- `app/payment/` - Payment page
-- `app/send-refill/` - Recharge flow
-- `public/Images/` - Application images
-- `public/carriers/` - Carrier logos
-- `package.json` - Frontend dependencies and scripts
-
-## How the Recharge Flow Works
+```text
+value-recharge/
+│
+├── backend/
+│   │
+│   ├── app/
+│   │   └── api/
+│   │       ├── admin/
+│   │       ├── auth/
+│   │       ├── payment/
+│   │       ├── recharge/
+│   │       ├── transactions/
+│   │       └── users/
+│   │
+│   ├── lib/
+│   │   ├── db.ts
+│   │   ├── logger.ts
+│   │   └── middleware/
+│   │
+│   ├── routes/
+│   │   ├── payment.routes.ts
+│   │   ├── plans.routes.ts
+│   │   ├── recharge.routes.ts
+│   │   └── transactions.routes.ts
+│   │
+│   ├── src/
+│   │   ├── controllers/
+│   │   ├── models/
+│   │   └── utilities/
+│   │
+│   ├── server.ts
+│   ├── package.json
+│   └── package-lock.json
+│
+├── frontend/
+│   │
+│   ├── app/
+│   │   ├── components/
+│   │   ├── dashboard/
+│   │   ├── login/
+│   │   ├── payment/
+│   │   ├── send-refill/
+│   │   ├── globals.css
+│   │   ├── layout.tsx
+│   │   └── page.tsx
+│   │
+│   ├── public/
+│   │   ├── Images/
+│   │   └── carriers/
+│   │
+│   ├── package.json
+│   └── next.config.ts
+│
+├── .gitignore
+└── README.md
+How the Recharge Flow Works
 
 The application follows a simple recharge workflow:
 
-**User → Select Carrier → Select Plan → Enter Mobile Number → Initialize Checkout → Payment → Transaction Verification → PostgreSQL → Dashboard**
+User
+ │
+ ▼
+Select Carrier
+ │
+ ▼
+Select Recharge Plan
+ │
+ ▼
+Enter Mobile Number
+ │
+ ▼
+Initialize Checkout
+ │
+ ▼
+JWT Checkout Token
+ │
+ ▼
+Payment
+ │
+ ▼
+Transaction Verification
+ │
+ ▼
+PostgreSQL
+ │
+ ▼
+Transaction Dashboard
 
-The checkout process generates a short-lived JWT containing the relevant checkout information.
+The checkout process generates a short-lived JWT containing the relevant checkout information. Protected transaction routes then verify the token before allowing the transaction to be recorded.
 
-Protected transaction routes verify the token before allowing the transaction to be recorded.
+Backend Architecture
 
-## Backend Architecture
+The backend follows a modular structure separating routes, controllers, models, utilities, and database operations.
 
-The backend follows a modular structure separating routes, controllers, middleware, utilities, and database operations.
-
-**Client → Express Routes → Middleware → Controllers → PostgreSQL**
+Client
+   │
+   ▼
+Express Routes
+   │
+   ▼
+Middleware
+   │
+   ▼
+Controllers
+   │
+   ▼
+PostgreSQL
 
 This structure makes the backend easier to maintain and allows individual features to be extended without modifying the entire application.
 
-# API Documentation
+API Documentation
 
 The backend exposes REST APIs for authentication, carriers, payments, recharge plans, users, and transactions.
 
-## Authentication
-
-### Register
-
-`POST /api/auth/register`
+Authentication
+Register
+POST /api/auth/register
 
 Creates a new user account.
 
 Example request:
 
-```json
 {
   "name": "Demo User",
   "email": "demo@example.com",
   "password": "password123"
 }
 Login
-
 POST /api/auth/login
 
 Authenticates an existing user.
@@ -158,7 +229,6 @@ Example request:
 }
 Carriers
 Get Available Carriers
-
 GET /api/recharge/carriers
 
 Returns the carriers available for recharge.
@@ -177,7 +247,6 @@ Example response:
 }
 Transactions
 Initialize Checkout
-
 POST /api/transactions/initiate
 
 Initializes a recharge checkout session and generates a temporary JWT checkout token.
@@ -206,7 +275,6 @@ Example response:
   }
 }
 Complete Transaction
-
 POST /api/transactions
 
 Records a completed transaction after checkout verification.
@@ -219,14 +287,12 @@ Example request:
   "referenceId": "transaction_reference"
 }
 Transaction Status Check
-
 POST /api/transactions/status-check
 
 Checks the authenticated transaction session.
 
 Admin Transactions
 Get All Transactions
-
 GET /api/admin/transactions
 
 Returns transaction records stored in PostgreSQL.
@@ -239,7 +305,7 @@ Example response:
   "data": []
 }
 
-Transaction records contain information such as:
+The transaction records contain information such as:
 
 Transaction ID
 Phone number
@@ -278,18 +344,26 @@ PostgreSQL
 Git
 Clone the Repository
 git clone https://github.com/akm8613/value-recharge.git
+
+Navigate into the project:
+
 cd value-recharge
 Backend Setup
 
 Navigate to the backend:
 
 cd backend
+
+Install dependencies:
+
 npm install
 
 Create a .env file:
 
 PORT=5001
+
 DATABASE_URL=your_postgresql_connection_string
+
 TOKEN_SECRET=your_secure_secret
 TOKEN_EXPIRY=10m
 
@@ -300,19 +374,23 @@ npm run dev
 The backend will run on:
 
 http://localhost:5001
-
 Frontend Setup
 
 Open another terminal and navigate to the frontend:
 
 cd frontend
+
+Install dependencies:
+
 npm install
+
+Start the development server:
+
 npm run dev
 
 The frontend will normally be available at:
 
 http://localhost:3000
-
 Environment Variables
 
 Do not commit environment files containing secrets.
@@ -357,14 +435,13 @@ npm run dev
 Then open:
 
 http://localhost:3000
-
 Future Improvements
 
-Possible improvements for future versions include:
+Some possible improvements for future versions include:
 
 Real payment gateway integration
 Recharge API integration with telecom providers
-Email and SMS transaction notifications
+Email/SMS transaction notifications
 Advanced admin analytics
 User profile management
 Recharge history filtering
@@ -410,7 +487,8 @@ Akshat Mishra
 B.Tech – Computer Science & Engineering (AIML)
 Manipal University Jaipur
 
-GitHub: https://github.com/akm8613
+GitHub:
+https://github.com/akm8613
 
 License
 
