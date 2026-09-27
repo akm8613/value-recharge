@@ -310,7 +310,7 @@ Author : Akshat Mishra
 
 B.Tech – Computer Science & Engineering (AIML)
 Manipal University Jaipur
-7869177993
+
 
 GitHub:
 https://github.com/akm8613
