@@ -144,97 +144,121 @@ value-recharge/
 └── README.md
 ```
 
-How the Recharge Flow Works
+---
+
+## How the Recharge Flow Works
 
 The application follows a simple recharge workflow:
 
+```text
 User
- │
- ▼
+  │
+  ▼
 Select Carrier
- │
- ▼
+  │
+  ▼
 Select Recharge Plan
- │
- ▼
+  │
+  ▼
 Enter Mobile Number
- │
- ▼
+  │
+  ▼
 Initialize Checkout
- │
- ▼
+  │
+  ▼
 JWT Checkout Token
- │
- ▼
+  │
+  ▼
 Payment
- │
- ▼
+  │
+  ▼
 Transaction Verification
- │
- ▼
+  │
+  ▼
 PostgreSQL
- │
- ▼
+  │
+  ▼
 Transaction Dashboard
+```
 
-The checkout process generates a short-lived JWT containing the relevant checkout information. Protected transaction routes then verify the token before allowing the transaction to be recorded.
+The checkout process generates a short-lived JWT containing the relevant checkout information. Protected transaction routes verify the token before allowing the transaction to be recorded.
 
-Backend Architecture
+---
 
-The backend follows a modular structure separating routes, controllers, models, utilities, and database operations.
+## Backend Architecture
 
+The backend follows a modular structure that separates routes, middleware, controllers, utilities, and database operations.
+
+```text
 Client
-   │
-   ▼
+  │
+  ▼
 Express Routes
-   │
-   ▼
+  │
+  ▼
 Middleware
-   │
-   ▼
+  │
+  ▼
 Controllers
-   │
-   ▼
+  │
+  ▼
 PostgreSQL
+```
 
-This structure makes the backend easier to maintain and allows individual features to be extended without modifying the entire application.
+This structure keeps the backend organized and makes individual features easier to maintain and extend.
 
-API Documentation
+---
+
+# API Documentation
 
 The backend exposes REST APIs for authentication, carriers, payments, recharge plans, users, and transactions.
 
-Authentication
-Register
-POST /api/auth/register
+## Authentication
+
+### Register
+
+`POST /api/auth/register`
 
 Creates a new user account.
 
-Example request:
+**Example request:**
 
+```json
 {
   "name": "Demo User",
   "email": "demo@example.com",
   "password": "password123"
 }
-Login
-POST /api/auth/login
+```
+
+### Login
+
+`POST /api/auth/login`
 
 Authenticates an existing user.
 
-Example request:
+**Example request:**
 
+```json
 {
   "email": "demo@example.com",
   "password": "password123"
 }
-Carriers
-Get Available Carriers
-GET /api/recharge/carriers
+```
+
+---
+
+## Carriers
+
+### Get Available Carriers
+
+`GET /api/recharge/carriers`
 
 Returns the carriers available for recharge.
 
-Example response:
+**Example response:**
 
+```json
 {
   "success": true,
   "data": [
@@ -245,14 +269,21 @@ Example response:
     "Boost Mobile"
   ]
 }
-Transactions
-Initialize Checkout
-POST /api/transactions/initiate
+```
+
+---
+
+## Transactions
+
+### Initialize Checkout
+
+`POST /api/transactions/initiate`
 
 Initializes a recharge checkout session and generates a temporary JWT checkout token.
 
-Example request:
+**Example request:**
 
+```json
 {
   "phone": "XXXXXXXXXX",
   "carrierName": "Verizon",
@@ -260,9 +291,11 @@ Example request:
   "planId": "vz-1",
   "amount": 25
 }
+```
 
-Example response:
+**Example response:**
 
+```json
 {
   "success": true,
   "checkoutToken": "JWT_TOKEN",
@@ -274,224 +307,277 @@ Example response:
     "amount": "$25"
   }
 }
-Complete Transaction
-POST /api/transactions
+```
+
+### Complete Transaction
+
+`POST /api/transactions`
 
 Records a completed transaction after checkout verification.
 
-Example request:
+**Example request:**
 
+```json
 {
   "gateway": "mock_gateway",
   "status": "SUCCESS",
   "referenceId": "transaction_reference"
 }
-Transaction Status Check
-POST /api/transactions/status-check
+```
+
+### Transaction Status Check
+
+`POST /api/transactions/status-check`
 
 Checks the authenticated transaction session.
 
-Admin Transactions
-Get All Transactions
-GET /api/admin/transactions
+---
+
+## Admin Transactions
+
+### Get All Transactions
+
+`GET /api/admin/transactions`
 
 Returns transaction records stored in PostgreSQL.
 
-Example response:
+**Example response:**
 
+```json
 {
   "success": true,
   "count": 0,
   "data": []
 }
+```
 
-The transaction records contain information such as:
+Transaction records contain information such as:
 
-Transaction ID
-Phone number
-Carrier
-Recharge plan
-Payment gateway
-Status
-Reference ID
-Creation time
-Update time
-Database
+- Transaction ID
+- Phone number
+- Carrier
+- Recharge plan
+- Payment gateway
+- Status
+- Reference ID
+- Creation time
+- Update time
 
-ValueRecharge uses PostgreSQL for storing application and transaction data.
+---
+
+# Database
+
+ValueRecharge uses **PostgreSQL** for storing application and transaction data.
 
 The transaction table contains fields including:
 
-Column  Description
-id  Unique transaction ID
-phone_no    Customer mobile number
-carrier_used    Selected carrier
-plan_chosen Selected recharge plan
-offers  Applied offer information
-payment_gateway_used    Payment gateway
-status  Transaction status
-ref_id  Transaction reference
-creation_time   Transaction creation time
-updation_time   Last update time
-Getting Started
-Prerequisites
+| Column | Description |
+| --- | --- |
+| `id` | Unique transaction ID |
+| `phone_no` | Customer mobile number |
+| `carrier_used` | Selected carrier |
+| `plan_chosen` | Selected recharge plan |
+| `offers` | Applied offer information |
+| `payment_gateway_used` | Payment gateway |
+| `status` | Transaction status |
+| `ref_id` | Transaction reference |
+| `creation_time` | Transaction creation time |
+| `updation_time` | Last update time |
+
+---
+
+# Getting Started
+
+## Prerequisites
 
 Make sure the following are installed:
 
-Node.js
-npm
-PostgreSQL
-Git
-Clone the Repository
+- Node.js
+- npm
+- PostgreSQL
+- Git
+
+## Clone the Repository
+
+```bash
 git clone https://github.com/akm8613/value-recharge.git
-
-Navigate into the project:
-
 cd value-recharge
-Backend Setup
+```
+
+---
+
+# Backend Setup
 
 Navigate to the backend:
 
+```bash
 cd backend
-
-Install dependencies:
-
 npm install
+```
 
-Create a .env file:
+Create a `.env` file:
 
+```env
 PORT=5001
-
 DATABASE_URL=your_postgresql_connection_string
-
 TOKEN_SECRET=your_secure_secret
 TOKEN_EXPIRY=10m
+```
 
 Start the development server:
 
+```bash
 npm run dev
+```
 
 The backend will run on:
 
-http://localhost:5001
-Frontend Setup
+`http://localhost:5001`
+
+---
+
+# Frontend Setup
 
 Open another terminal and navigate to the frontend:
 
+```bash
 cd frontend
-
-Install dependencies:
-
 npm install
-
-Start the development server:
-
 npm run dev
+```
 
 The frontend will normally be available at:
 
-http://localhost:3000
-Environment Variables
+`http://localhost:3000`
+
+---
+
+# Environment Variables
 
 Do not commit environment files containing secrets.
 
 Example:
 
+```env
 DATABASE_URL=your_database_url
 TOKEN_SECRET=your_secret
 TOKEN_EXPIRY=10m
 PORT=5001
+```
 
-The project .gitignore excludes environment files such as:
+The project `.gitignore` excludes environment files such as:
 
-.env
-.env.local
-.env.*.local
-Security
+- `.env`
+- `.env.local`
+- `.env.*.local`
+
+---
+
+# Security
 
 The project includes several security-oriented practices:
 
-JWT-based checkout authentication
-Protected transaction routes
-Short-lived checkout tokens
-Environment variables for sensitive configuration
-PostgreSQL parameterized queries
-Middleware-based transaction verification
-Separation between public and protected routes
+- JWT-based checkout authentication
+- Protected transaction routes
+- Short-lived checkout tokens
+- Environment variables for sensitive configuration
+- PostgreSQL parameterized queries
+- Middleware-based transaction verification
+- Separation between public and protected routes
 
 No real credentials, payment secrets, or private environment variables should be committed to the repository.
 
-Development
+---
+
+# Development
 
 A typical development setup uses two terminals.
 
-Terminal 1 — Backend
+### Terminal 1 — Backend
+
+```bash
 cd backend
 npm run dev
-Terminal 2 — Frontend
+```
+
+### Terminal 2 — Frontend
+
+```bash
 cd frontend
 npm run dev
+```
 
 Then open:
 
-http://localhost:3000
-Future Improvements
+`http://localhost:3000`
+
+---
+
+# Future Improvements
 
 Some possible improvements for future versions include:
 
-Real payment gateway integration
-Recharge API integration with telecom providers
-Email/SMS transaction notifications
-Advanced admin analytics
-User profile management
-Recharge history filtering
-Search and pagination
-Automated transaction reconciliation
-Docker-based deployment
-Automated testing
-Production monitoring
-Project Purpose
+- Real payment gateway integration
+- Recharge API integration with telecom providers
+- Email/SMS transaction notifications
+- Advanced admin analytics
+- User profile management
+- Recharge history filtering
+- Search and pagination
+- Automated transaction reconciliation
+- Docker-based deployment
+- Automated testing
+- Production monitoring
+
+---
+
+# Project Purpose
 
 ValueRecharge was developed as a practical full-stack project to explore how a real-world recharge platform can be structured from frontend to backend and database.
 
 The project focuses on:
 
-Full-stack development
-REST API design
-Authentication
-Database integration
-Payment workflow design
-Transaction management
-Dashboard development
-Clean project architecture
-Internship Project
+- Full-stack development
+- REST API design
+- Authentication
+- Database integration
+- Payment workflow design
+- Transaction management
+- Dashboard development
+- Clean project architecture
 
-ValueRecharge was developed as part of a Full-Stack Web Development Internship.
+---
+
+# Internship Project
+
+ValueRecharge was developed as part of a **Full-Stack Web Development Internship**.
 
 The project involved working with:
 
-React / Next.js
-Node.js
-Express.js
-TypeScript
-PostgreSQL
-REST APIs
-Authentication
-Payment workflows
-Database operations
-Testing and debugging
-Author
+- React / Next.js
+- Node.js
+- Express.js
+- TypeScript
+- PostgreSQL
+- REST APIs
+- Authentication
+- Payment workflows
+- Database operations
+- Testing and debugging
 
-Akshat Mishra
+---
 
-B.Tech – Computer Science & Engineering (AIML)
+# Author
+
+**Akshat Mishra**
+
+B.Tech – Computer Science & Engineering (AIML)  
 Manipal University Jaipur
 
-GitHub:
-https://github.com/akm8613
+GitHub: https://github.com/akm8613
 
-License
+---
+
+# License
 
 This project is intended for educational, internship, portfolio, and demonstration purposes.
-
-
