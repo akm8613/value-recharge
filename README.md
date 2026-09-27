@@ -93,7 +93,6 @@ The project currently includes support for carriers such as:
 value-recharge/
 │
 ├── backend/
-│   │
 │   ├── app/
 │   │   └── api/
 │   │       ├── admin/
@@ -124,7 +123,6 @@ value-recharge/
 │   └── package-lock.json
 │
 ├── frontend/
-│   │
 │   ├── app/
 │   │   ├── components/
 │   │   ├── dashboard/
@@ -144,6 +142,8 @@ value-recharge/
 │
 ├── .gitignore
 └── README.md
+```
+
 How the Recharge Flow Works
 
 The application follows a simple recharge workflow:
@@ -322,17 +322,17 @@ ValueRecharge uses PostgreSQL for storing application and transaction data.
 
 The transaction table contains fields including:
 
-Column	Description
-id	Unique transaction ID
-phone_no	Customer mobile number
-carrier_used	Selected carrier
-plan_chosen	Selected recharge plan
-offers	Applied offer information
-payment_gateway_used	Payment gateway
-status	Transaction status
-ref_id	Transaction reference
-creation_time	Transaction creation time
-updation_time	Last update time
+Column  Description
+id  Unique transaction ID
+phone_no    Customer mobile number
+carrier_used    Selected carrier
+plan_chosen Selected recharge plan
+offers  Applied offer information
+payment_gateway_used    Payment gateway
+status  Transaction status
+ref_id  Transaction reference
+creation_time   Transaction creation time
+updation_time   Last update time
 Getting Started
 Prerequisites
 
@@ -493,3 +493,5 @@ https://github.com/akm8613
 License
 
 This project is intended for educational, internship, portfolio, and demonstration purposes.
+
+
